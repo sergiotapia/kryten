@@ -1,6 +1,6 @@
 # Kryten
 
-![https://i.imgur.com/J6eB3mp.png](https://i.imgur.com/J6eB3mp.png)
+<img src="https://github.com/sergiotapia/kryten/assets/686715/a467adad-e284-40e9-b71e-7e8153eb2bd5" width="200" />
 
 Kryten is a CLI tool to help you easily ask questions and get clear
 sourced answers directly from your documents.
