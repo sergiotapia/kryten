@@ -12,3 +12,4 @@ bin           = @["kryten"]
 
 requires "nim >= 2.0.2"
 requires "db_connector >= 0.1.0"
+requires "docopt >= 0.6.7"
