@@ -5,5 +5,10 @@
 # Welcome aboard, and may your commits be as epic as Lister's 
 # guitar solos!
 
+import database
+
 when isMainModule:
-  echo("Hello, World!")
+  if database.initNecessary():
+    database.initDatabase()
+  
+
