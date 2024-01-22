@@ -25,14 +25,18 @@ minimal resource usage. For real.
 
 ### Usage Guide:
 
-You need two things for Kryten to be able to work:
+You need three things for Kryten to be able to work:
 
 - An OpenAI API key.
 - A Pinecone.io vector database.
+- The Java Runtime so Tika can extract document text.
 
 ### Local Development
 
-TODO
+```
+nimble install
+nimble build && ./kryten ask ~/Downloads/example.pdf question "What is Space Core Directive 196156?"
+```
 
 ### Contributing:
 
