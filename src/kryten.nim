@@ -6,8 +6,7 @@
 # guitar solos!
 
 import std/envvars
-import std/strutils
-import std/json
+import std/strformat
 import docopt
 
 import database
@@ -27,8 +26,8 @@ when isMainModule:
   if len(getEnv("PINECONE_ENDPOINT")) == 0:
     raise EnvironmentError.newException("Environment variable $PINECONE_ENDPOINT is not set.")
 
-  # if database.initNecessary():
-  #   database.initDatabase()
+  if database.initNecessary():
+    database.initDatabase()
 
   let doc = """
   Kryten
@@ -41,28 +40,19 @@ when isMainModule:
 
   if args["ask"] and args["question"]:
     var filepath = $args["<filepath>"] 
-    var contents = extractContents(filepath)
-    echo contents
 
-    # TODO: Check if embeddings exist for this filepath on Pinecone.
-      
-      # TODO: Chop up contents, generate embeddings, and insert
-      # into Pinecone DB with metadata about the filepath.
-      # var embeddings = generateEmbeddings("test")
-      # upsertEmbeddings("example.pdf", 1, "My name is Sergio", embeddings)
-
-    # TODO: Generate embeddings for the question, and query
-    # Pinecone DB for the most similar embeddings where filepath
-    # is the same.
-    # var questionEmbeddings = generateEmbeddings("What is your name?")
-    # var ragContext = searchEmbeddings("example.pdf", questionEmbeddings)
+    if prefixExists(filepath) == false:
+      var contents = extractContents(filepath)      
+      for content in contents:
+        echo &"Generating embedding for {filepath}: Page #{content.pageNumber}"
+        var embeddings = generateEmbeddings(content.text)        
+        upsertEmbeddings(filepath, content.pageNumber, content.text, embeddings)
     
+    var question = $args["<question>"]
+    var questionEmbeddings = generateEmbeddings(question)
+    var ragContext = searchEmbeddings(filepath, questionEmbeddings)
 
-    # TODO: Return the most similar embeddings to pass in as context.
-    # echo %ragContext
-
-    # TODO: Send the matching context and the question to ChatGPT API.
-    # let answer = answerQuestionWithRag("What is your name?", ragContext)
-    # echo answer
+    let answer = answerQuestionWithRag(question, ragContext)
+    echo answer
 
     # TODO: Save question and answer for filepath in sqlite database.

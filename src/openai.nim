@@ -1,9 +1,11 @@
 import std/envvars
 import std/httpclient
 import std/json
+import std/os
 import std/strformat
 
 proc generateEmbeddings*(text: string): seq[float] =
+  sleep(200)
   const openai_api_key = getEnv("OPENAI_API_KEY")
   const url = "https://api.openai.com/v1/embeddings"
 
@@ -24,15 +26,26 @@ proc generateEmbeddings*(text: string): seq[float] =
   return embeddings
 
 proc answerQuestionWithRag*(question: string, ragContext: JsonNode): string =
+  sleep(200)
   let prompt = fmt"""
-  Use the information below to answer my question. Cite the filename, page number
-  and directly quote the answer from the context.
+  Use the information below to answer my question. 
 
   Filename: {ragContext["filename"]}
   Page Number: {ragContext["page_number"]}
   Context is below: 
     
   {ragContext["raw_text"]}
+
+  ---
+  
+  Cite the filename, page number and directly quote the answer from 
+  the context. Format the answer nicely using simple to understand 
+  language.
+
+  You MUST use this response format exactly:
+
+      Your refridgerator uses a CF8 filter.
+      Source: manual.pdf, page 1
   """
 
   const openai_api_key = getEnv("OPENAI_API_KEY")

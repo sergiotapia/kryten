@@ -3,7 +3,7 @@ import std/envvars
 import std/strutils
 
 proc initNecessary*(): bool =
-  true
+  return getEnv("NUKE_MY_DATABASE", "false").parseBool()
 
 proc initDatabase*(): void =
   echo "Initializing Kryten's SQLite database..."
@@ -15,10 +15,3 @@ proc initDatabase*(): void =
   db.exec(sql"DROP TABLE IF EXISTS documents;")
   db.exec(sql"CREATE TABLE documents (id INTEGER PRIMARY KEY, filename TEXT);")
   db.exec(sql"CREATE UNIQUE INDEX filename_index on documents(filename);")
-
-proc resetDatabaseRequested*(): bool =
-  if getEnv("NUKE_MY_DATABASE", "false").parseBool():
-    true
-  else:
-    false
-
