@@ -40,7 +40,7 @@ bicycle in the women's gym will be discharged without trial.
 
 ### OpenAI for ChatPGT
 
-TODO: Write guide how to get your OpenAI API key.
+You can create your own API key here: https://platform.openai.com/api-keys
 
 ### Pinecone Serverless for Vector Database RAG.
 

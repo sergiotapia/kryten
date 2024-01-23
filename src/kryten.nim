@@ -5,30 +5,40 @@
 # Welcome aboard, and may your commits be as epic as Lister's 
 # guitar solos!
 
+import std/envvars
+import std/strutils
 import docopt
 
 import database
 import files
+import openai
 
 when isMainModule:
-  if database.initNecessary():
-    database.initDatabase()
+  type EnvironmentError* = object of ValueError
 
-  let doc = """
-  Kryten
+  if len(getEnv("OPENAI_API_KEY")) == 0:
+    raise EnvironmentError.newException("Environment variable $OPENAI_API_KEY is not set.")
 
-  Usage:
-    kryten ask <filepath> question <question>
-  """
+  discard generateEmbeddings("test")
+
+  # if database.initNecessary():
+  #   database.initDatabase()
+
+  # let doc = """
+  # Kryten
+
+  # Usage:
+  #   kryten ask <filepath> question <question>
+  # """
     
-  let args = docopt(doc, version = "Kryten 0.1.0")
+  # let args = docopt(doc, version = "Kryten 0.1.0")
 
-  if args["ask"] and args["question"]:
-    var filepath = $args["<filepath>"] 
-    var contents = extractContents(filepath)
+  # if args["ask"] and args["question"]:
+  #   var filepath = $args["<filepath>"] 
+  #   var contents = extractContents(filepath)
   
-    echo contents
-    echo filepath
+  #   echo contents
+  #   echo filepath
 
     # TODO: Check if embeddings exist for this filepath on Pinecone.
       
