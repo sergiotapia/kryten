@@ -48,6 +48,8 @@ TODO: Write guide how to get your OpenAI API key.
 
 <img width="1201" alt="Screenshot 2024-01-22 at 8 56 58 PM" src="https://github.com/sergiotapia/kryten/assets/686715/796f9a3f-7bdf-451d-ab09-ae91763fc1b9">
 
+<img width="1439" alt="Screenshot 2024-01-22 at 9 02 52 PM" src="https://github.com/sergiotapia/kryten/assets/686715/ec41e977-5249-44b9-9874-195075d85f50">
+
 ### Java Runtime to run Tika App.
 
 Tika App is used to extract the content of your documents. You'll
