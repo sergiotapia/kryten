@@ -7,11 +7,13 @@
 
 import std/envvars
 import std/strutils
+import std/json
 import docopt
 
 import database
 import files
 import openai
+import pinecone
 
 when isMainModule:
   type EnvironmentError* = object of ValueError
@@ -19,7 +21,17 @@ when isMainModule:
   if len(getEnv("OPENAI_API_KEY")) == 0:
     raise EnvironmentError.newException("Environment variable $OPENAI_API_KEY is not set.")
 
-  discard generateEmbeddings("test")
+  # var embeddings = generateEmbeddings("test")
+  # upsertEmbeddings("example.pdf", 1, "My name is Sergio", embeddings)
+
+  var questionEmbeddings = generateEmbeddings("What is your name?")
+  var ragContext = searchEmbeddings("example.pdf", questionEmbeddings)
+  echo %ragContext
+
+  let answer = answerQuestionWithRag("What is your name?", ragContext)
+  echo answer
+
+
 
   # if database.initNecessary():
   #   database.initDatabase()

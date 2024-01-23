@@ -1,50 +1,54 @@
-proc search*(filename: string, embeddings: seq[float]): string =
-  # curl -X POST "https://YOUR_INDEX_ENDPOINT/query" \
-  # -H "Api-Key: YOUR_API_KEY" \
-  # -H 'Content-Type: application/json' \
-  # -d '{
-  #   "namespace": "ns1",
-  #   "vector": [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
-  #   "topK": 2,
-  #   "includeValues": true,
-  #   "includeMetadata": true,
-  #   "filter": {"genre": {"$eq": "action"}}
-  # }'
+import std/envvars
+import std/httpclient
+import std/json
+import std/strformat
 
-  # Query Pinecone using the metadata: filename, and embeddings.
-  # Return the pure text of the top result. This is the RAG context
-  # we need to send to the ChatGPT model.
-  return "test"
+proc searchEmbeddings*(filename: string, embeddings: seq[float]): JsonNode =
+  const pinecone_api_key = getEnv("PINECONE_API_KEY")
+  const pinecone_endpoint = getEnv("PINECONE_ENDPOINT")
+  const url = &"{pinecone_endpoint}/query"
 
-proc upsert*(filename: string, embeddings: seq[float]): void =
-  # curl -X POST "https://YOUR_INDEX_ENDPOINT/vectors/upsert" \
-  # -H "Api-Key: YOUR_API_KEY" \
-  # -H 'Content-Type: application/json' \
-  # -d '{
-  #   "vectors": [
-  #     {
-  #       "id": "vec1", 
-  #       "values": [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-  #       "metadata": {"genre": "drama"}
-  #     },
-  #     {
-  #       "id": "vec2", 
-  #       "values": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
-  #       "metadata": {"genre": "action"}
-  #     },
-  #     {
-  #       "id": "vec3", 
-  #       "values": [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
-  #       "metadata": {"genre": "drama"}
-  #     },
-  #     {
-  #       "id": "vec4", 
-  #       "values": [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
-  #       "metadata": {"genre": "action"}
-  #     }
-  #   ],
-  #   "namespace": "ns1"
-  # }'
+  let client = newHttpClient()
+  client.headers = newHttpHeaders({ "Content-Type": "application/json", "Api-Key": pinecone_api_key})
 
-  # Upsert the embeddings and associate it with the metadata: filename
-  # on Pinecone.
+  let body = %*{
+    "vector": embeddings,
+    "topK": 2,
+    "includeValues": false,
+    "includeMetadata": true,
+    "filter": %*{
+      "filename": %*{
+        "$eq": filename
+      }
+    }
+  }
+
+  let response = client.request(url, httpMethod = HttpPost, body = $body)
+  let json =  parseJson(response.body)
+  return json["matches"][0]["metadata"]
+
+  client.close()
+
+proc upsertEmbeddings*(filename: string, page_number: int, raw_text: string, embeddings: seq[float]): void =
+  const pinecone_api_key = getEnv("PINECONE_API_KEY")
+  const pinecone_endpoint = getEnv("PINECONE_ENDPOINT")
+  const url = &"{pinecone_endpoint}/vectors/upsert"
+
+  let client = newHttpClient()
+  client.headers = newHttpHeaders({ "Content-Type": "application/json", "Api-Key": pinecone_api_key})
+
+  let body = %*{
+    "vectors": %*{
+      "id": filename,
+      "values": embeddings,
+      "metadata": %*{
+        "filename": filename,
+        "raw_text": raw_text,
+        "page_number": page_number
+      }
+    }
+  }
+  
+  discard client.request(url, httpMethod = HttpPost, body = $body)
+  client.close()  
+  

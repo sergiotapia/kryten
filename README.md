@@ -9,7 +9,7 @@ sourced answers directly from your documents.
 ./kryten ask ~/directives.pdf question "What is Space Core Directive 196156?"
 
 The directive states that any officer caught sniffing the saddle of the exercise
-bicycle in the women's gym will be discharged without trial.
+bicycle in the women's gym will be discharged without trial. (directives.pdf, page 1)
 ```
 
 ## Goals:
