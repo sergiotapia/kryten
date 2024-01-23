@@ -42,3 +42,5 @@ when isMainModule:
     # TODO: Return the most similar embeddings to pass in as context.
 
     # TODO: Send the matching context and the question to ChatGPT API.
+
+    # TODO: Save question and answer for filepath in sqlite database.

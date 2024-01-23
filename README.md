@@ -5,10 +5,12 @@
 Kryten is a CLI tool to help you easily ask questions and get clear
 sourced answers directly from your documents.
 
-Call it through your shell, give it a filepath, and ask a question.
+```
+./kryten ask ~/directives.pdf question "What is Space Core Directive 196156?"
 
-You will get a nice answer, and a nice source citation telling you where
-that answer came from.
+The directive states that any officer caught sniffing the saddle of the exercise
+bicycle in the women's gym will be discharged without trial.
+```
 
 ### Goals:
 
@@ -31,11 +33,20 @@ You need three things for Kryten to be able to work:
 - A Pinecone.io vector database.
 - The Java Runtime so Tika can extract document text.
 
+Then call the `kryten` binary.
+
+```
+./kryten ask ~/directives.pdf question "What is Space Core Directive 196156?"
+
+The directive states that any officer caught sniffing the saddle of the exercise
+bicycle in the women's gym will be discharged without trial.
+```
+
 ### Local Development
 
 ```
 nimble install
-nimble build && ./kryten ask ~/Downloads/example.pdf question "What is Space Core Directive 196156?"
+nimble build && ./kryten ask ~/directives.pdf question "What is Space Core Directive 196156?"
 ```
 
 ### Contributing:
