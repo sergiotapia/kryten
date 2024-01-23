@@ -18,12 +18,15 @@ Kryten is portable, snappy, and works across all platforms with
 minimal resource usage. For real.
 
 - **CLI only**
+- Tiny footprint: Kryten is only 125Kb.
 - SQLite for portability and easy backups.
 - Ask any question you want.
 - Show your chat history for a single file.
 - Show your chat history across all files.
 - Documents are cached so questions are snappy.
 - Run without ceremony. No need for configurations.
+
+My intent is for Kryten to be used by other apps to power their RAG workflows.
 
 ## Usage Guide:
 
