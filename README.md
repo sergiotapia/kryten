@@ -42,9 +42,11 @@ bicycle in the women's gym will be discharged without trial.
 
 TODO: Write guide how to get your OpenAI API key.
 
-### Pinecone for Vector Database RAG.
+### Pinecone Serverless for Vector Database RAG.
 
-TODO: Add screenshots
+<img width="1200" alt="Screenshot 2024-01-22 at 8 56 10 PM" src="https://github.com/sergiotapia/kryten/assets/686715/ed3a130f-3f92-4f76-8d3c-30ad3beaf6b6">
+
+<img width="1201" alt="Screenshot 2024-01-22 at 8 56 58 PM" src="https://github.com/sergiotapia/kryten/assets/686715/796f9a3f-7bdf-451d-ab09-ae91763fc1b9">
 
 ### Java Runtime to run Tika App.
 
