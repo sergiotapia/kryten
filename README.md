@@ -12,7 +12,7 @@ The directive states that any officer caught sniffing the saddle of the exercise
 bicycle in the women's gym will be discharged without trial.
 ```
 
-### Goals:
+## Goals:
 
 Kryten is portable, snappy, and works across all platforms with
 minimal resource usage. For real.
@@ -25,15 +25,9 @@ minimal resource usage. For real.
 - Documents are cached so questions are snappy.
 - Run without ceremony. No need for configurations.
 
-### Usage Guide:
+## Usage Guide:
 
-You need three things for Kryten to be able to work:
-
-- An OpenAI API key.
-- A Pinecone.io vector database.
-- The Java Runtime so Tika can extract document text.
-
-Then call the `kryten` binary.
+Call the `kryten` binary.
 
 ```
 ./kryten ask ~/directives.pdf question "What is Space Core Directive 196156?"
@@ -42,13 +36,29 @@ The directive states that any officer caught sniffing the saddle of the exercise
 bicycle in the women's gym will be discharged without trial.
 ```
 
-### Local Development
+## Requirements:
+
+### OpenAI for ChatPGT
+
+TODO: Write guide how to get your OpenAI API key.
+
+### Pinecone for Vector Database RAG.
+
+TODO: Add screenshots
+
+### Java Runtime to run Tika App.
+
+Tika App is used to extract the content of your documents. You'll
+need the Java Runtime Environment installed on your machine so this
+can run properly.
+
+## Local Development:
 
 ```
 nimble install
 nimble build && ./kryten ask ~/directives.pdf question "What is Space Core Directive 196156?"
 ```
 
-### Contributing:
+## Contributing:
 
 TODO
