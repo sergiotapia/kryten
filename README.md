@@ -18,7 +18,7 @@ Kryten is portable, snappy, and works across all platforms with
 minimal resource usage. For real.
 
 - **CLI only**
-- Tiny footprint: Kryten is only 125Kb.
+- Tiny footprint: Kryten is only 1.6MB.
 - SQLite for portability and easy backups.
 - Ask any question you want.
 - Show your chat history for a single file.
