@@ -6,10 +6,10 @@ Kryten is a CLI tool to help you easily ask questions and get clear
 sourced answers directly from your documents.
 
 ```
-./kryten ask ~/directives.pdf question "What is Space Core Directive 997?"
+./kryten ask ~/directives.pdf question "What's Space Core Directive 997?"
 
-Work done by an officer's doppleganger in a parallel universe cannot be 
-claimed as overtime. (directives.pdf, page 1)
+Work done by an officer's doppleganger in a parallel universe
+cannot be claimed as overtime. (directives.pdf, page 1)
 ```
 
 ## Goals:
@@ -33,10 +33,10 @@ My intent is for Kryten to be used by other apps to power their RAG workflows.
 Call the `kryten` binary.
 
 ```
-./kryten ask ~/directives.pdf question "What is Space Core Directive 997?"
+./kryten ask ~/directives.pdf question "What's Space Core Directive 997?"
 
-Work done by an officer's doppleganger in a parallel universe cannot be 
-claimed as overtime. (directives.pdf, page 1)
+Work done by an officer's doppleganger in a parallel universe 
+cannot be claimed as overtime. (directives.pdf, page 1)
 ```
 
 ## Requirements:
