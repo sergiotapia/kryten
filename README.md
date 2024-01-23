@@ -30,6 +30,14 @@ My intent is for Kryten to be used by other apps to power their RAG workflows.
 
 ## Usage Guide:
 
+Set these three Environment variables:
+
+```
+OPENAI_API_KEY="sk-123123"
+PINECONE_API_KEY="123123"
+PINECONE_ENDPOINT="https://some-index.svc.some-random-id.pinecone.io"
+```
+
 Call the `kryten` binary.
 
 ```
